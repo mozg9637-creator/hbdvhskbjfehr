@@ -1,0 +1,34 @@
+name: Build AuraGit OS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-rom:
+    runs-on: ubuntu-22.04 # GitHub сам выделит Linux-сервер для сборки
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Freeing up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        # Освобождаем место под Android (~80 ГБ на виртуальной машине)
+
+    - name: Install Build Tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev libxml2-utils unzip python3
+
+    - name: Run Build Script
+      run: |
+        chmod +x build_auragit.sh
+        ./build_auragit.sh
+
+    - name: Upload Finished System Image
+      uses: actions/upload-artifact@v3
+      with:
+        name: auragit-system-image
+        path: out/target/product/generic_x86_64/system.img
