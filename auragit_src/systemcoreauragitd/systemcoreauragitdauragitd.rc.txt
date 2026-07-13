@@ -1,0 +1,7 @@
+service auragitd /system/bin/auragitd
+    class core
+    user root
+    group system
+    writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:su:s0
+    oneshot
