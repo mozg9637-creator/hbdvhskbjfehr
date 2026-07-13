@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- Удаляем стандартные репозитории настроек и ядра AOSP -->
+  <remove-project name="platform/packages/apps/Settings" />
+  <remove-project name="platform/frameworks/base" />
+
+  <!-- Подключаем кастомные репозитории AuraGit OS -->
+  <project path="packages/apps/Settings" 
+           name="AuraGitOS/packages_apps_Settings" 
+           revision="aura-14.0" 
+           remote="github" />
+
+  <project path="frameworks/base" 
+           name="AuraGitOS/frameworks_base" 
+           revision="aura-14.0" 
+           remote="github" />
+
+  <!-- Добавляем наш системный демон управления состояниями -->
+  <project path="system/core/auragitd" 
+           name="AuraGitOS/system_core_auragitd" 
+           revision="main" 
+           remote="github" />
+</manifest>
